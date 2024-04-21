@@ -3,15 +3,15 @@
 #include <android/log.h>
 
 static const int ARRAY_OF_STRINGS_SIZE = 10000;
-static jstring arrayOfStrings[ARRAY_OF_STRINGS_SIZE];
+static std::string arrayOfStrings[ARRAY_OF_STRINGS_SIZE];
 
 static jstring provideStringFromArray(JNIEnv *env, jobject thiz, jint index) {
-    return arrayOfStrings[index];
+    return env->NewStringUTF(arrayOfStrings[index].c_str());
 }
 
 static void initializeArrayOfStrings(JNIEnv *env) {
     for (int i = 0; i < ARRAY_OF_STRINGS_SIZE; ++i) {
-        arrayOfStrings[i] = env->NewStringUTF(("test string " + std::to_string(i)).c_str());
+        arrayOfStrings[i] = "test string " + std::to_string(i);
     }
 }
 
