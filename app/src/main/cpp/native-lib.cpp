@@ -9,7 +9,7 @@ static jstring provideStringFromArray(JNIEnv *env, jobject thiz, jint index) {
     return env->NewStringUTF(arrayOfStrings[index].c_str());
 }
 
-static void initializeArrayOfStrings(JNIEnv *env) {
+static void initializeArrayOfStrings(JNIEnv *env, jobject thiz) {
     for (int i = 0; i < ARRAY_OF_STRINGS_SIZE; ++i) {
         arrayOfStrings[i] = "test string " + std::to_string(i);
     }
@@ -35,7 +35,8 @@ static const char *nativeDataProviderClassName = "dev/vadzimv/jniperftest/Native
 
 static JNINativeMethod constants_methods[] = {
     // ------- java-function-name --------- jni-signature -------- cpp-function-ptr--
-    {"getNativeStringFromArray", "(I)Ljava/lang/String;", (void *) provideStringFromArray}
+    {"getNativeStringFromArray", "(I)Ljava/lang/String;", (void *) provideStringFromArray},
+    {"initArray", "()V", (void *) initializeArrayOfStrings}
 };
 
 static int registerNatives(JNIEnv *env) {
@@ -53,7 +54,6 @@ jint JNI_OnLoad(JavaVM *vm, void *reserved){
     vm->GetEnv((void**)&env, JNI_VERSION_1_4);
 
     if (registerNatives(env) == JNI_TRUE) {
-        initializeArrayOfStrings(env);
         return JNI_VERSION_1_4;
     } else {
         return -1;
