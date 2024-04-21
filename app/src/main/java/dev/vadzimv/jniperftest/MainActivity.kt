@@ -16,6 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Example of a call to a native method
-        binding.sampleText.text = NativeDataProvider.provideNativeString()
+        binding.sampleText.text = NativeDataProvider.getNativeStringFromArray(5)
     }
 }
