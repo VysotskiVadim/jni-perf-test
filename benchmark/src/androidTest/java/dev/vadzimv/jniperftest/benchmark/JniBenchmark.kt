@@ -9,6 +9,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+private const val TEST_ARRAY_SIZE = 100_000
+
 @RunWith(AndroidJUnit4::class)
 class JniBenchmark {
 
@@ -17,9 +19,9 @@ class JniBenchmark {
 
     @Test
     fun measurePlatformArrayOfStringsAccess() {
-        PlatformDataProvider.initArray()
+        PlatformDataProvider.initArray(TEST_ARRAY_SIZE)
         benchmarkRule.measureRepeated {
-            for (i in 0 until 10_000) {
+            for (i in 0 until TEST_ARRAY_SIZE) {
                 PlatformDataProvider.getStringFromArray(i)
             }
         }
@@ -27,9 +29,9 @@ class JniBenchmark {
 
     @Test
     fun measureNativeArrayOfStringsAccess() {
-        NativeDataProvider.initArray()
+        NativeDataProvider.initArray(TEST_ARRAY_SIZE)
         benchmarkRule.measureRepeated {
-            for (i in 0 until 10_000) {
+            for (i in 0 until TEST_ARRAY_SIZE) {
                 NativeDataProvider.getNativeStringFromArray(i)
             }
         }

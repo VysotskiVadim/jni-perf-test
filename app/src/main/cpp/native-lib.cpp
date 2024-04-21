@@ -2,16 +2,16 @@
 #include <string>
 #include <android/log.h>
 
-static const int ARRAY_OF_STRINGS_SIZE = 10000;
-static std::string arrayOfStrings[ARRAY_OF_STRINGS_SIZE];
+static std::string** arrayOfStrings;
 
 static jstring provideStringFromArray(JNIEnv *env, jobject thiz, jint index) {
-    return env->NewStringUTF(arrayOfStrings[index].c_str());
+    return env->NewStringUTF(arrayOfStrings[index]->c_str());
 }
 
-static void initializeArrayOfStrings(JNIEnv *env, jobject thiz) {
-    for (int i = 0; i < ARRAY_OF_STRINGS_SIZE; ++i) {
-        arrayOfStrings[i] = "test string " + std::to_string(i);
+static void initializeArrayOfStrings(JNIEnv *env, jobject thiz, jint arraySize) {
+    arrayOfStrings = new std::string*[arraySize];
+    for (int i = 0; i < arraySize; ++i) {
+        arrayOfStrings[i] = new std::string("test string " + std::to_string(i));
     }
 }
 
@@ -36,7 +36,7 @@ static const char *nativeDataProviderClassName = "dev/vadzimv/jniperftest/Native
 static JNINativeMethod constants_methods[] = {
     // ------- java-function-name --------- jni-signature -------- cpp-function-ptr--
     {"getNativeStringFromArray", "(I)Ljava/lang/String;", (void *) provideStringFromArray},
-    {"initArray", "()V", (void *) initializeArrayOfStrings}
+    {"initArray", "(I)V", (void *) initializeArrayOfStrings}
 };
 
 static int registerNatives(JNIEnv *env) {

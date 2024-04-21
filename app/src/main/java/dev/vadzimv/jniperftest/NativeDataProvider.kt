@@ -9,7 +9,7 @@ class NativeDataProvider {
         }
 
         @[JvmStatic Keep]
-        external fun initArray()
+        external fun initArray(size: Int)
 
         @[JvmStatic Keep]
         external fun getNativeStringFromArray(index: Int): String

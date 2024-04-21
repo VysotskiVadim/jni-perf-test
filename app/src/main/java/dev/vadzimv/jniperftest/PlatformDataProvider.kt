@@ -4,8 +4,8 @@ object PlatformDataProvider {
 
     private lateinit var arrayOfStrings: List<String>
 
-    fun initArray() {
-        arrayOfStrings = MutableList(10_000) {
+    fun initArray(size: Int) {
+        arrayOfStrings = MutableList(size) {
             "test string $it"
         }
     }
