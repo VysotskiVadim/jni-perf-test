@@ -1,9 +1,14 @@
 package dev.vadzimv.jniperftest
 
-object NativeDataProvider {
-    init {
-        System.loadLibrary("jniperftest")
-    }
+import androidx.annotation.Keep
 
-    external fun stringFromJNI(): String
+class NativeDataProvider {
+    companion object {
+        init {
+            System.loadLibrary("jniperftest")
+        }
+
+        @[JvmStatic Keep]
+        external fun provideNativeString(): String
+    }
 }
