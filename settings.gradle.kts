@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "JNI perf test"
-include(":app")
+include(":jni-test-examples")
 include(":benchmark")
