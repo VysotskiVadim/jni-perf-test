@@ -13,12 +13,32 @@ class MainScreenViewModel : ViewModel() {
     fun performAction(action: MainScreenAction) {
         when(action) {
             MainScreenAction.AllocateNative -> {
-                state.update { it.copy(canAllocateNative = false) }
+                state.update {
+                    it.copy(
+                        canAllocateNative = false,
+                        canProcessNative = true
+                    )
+                }
                 NativeDataProvider.initArray(arraySize)
             }
             MainScreenAction.AllocatePlatform -> {
-                state.update { it.copy(canAllocatePlatform = false) }
+                state.update {
+                    it.copy(
+                        canAllocatePlatform = false,
+                        canProcessPlatform = true
+                    )
+                }
                 PlatformDataProvider.initArray(arraySize)
+            }
+            MainScreenAction.ProcessNative -> {
+                for (i in 0 until arraySize) {
+                    NativeDataProvider.getNativeStringFromArray(i)
+                }
+            }
+            MainScreenAction.ProcessPlatform -> {
+                for (i in 0 until arraySize) {
+                    PlatformDataProvider.getStringFromArray(i)
+                }
             }
         }
     }
@@ -26,14 +46,14 @@ class MainScreenViewModel : ViewModel() {
 
 sealed class MainScreenAction {
     object AllocateNative: MainScreenAction()
+    object ProcessNative: MainScreenAction()
     object AllocatePlatform: MainScreenAction()
+    object ProcessPlatform: MainScreenAction()
 }
 
 data class ScreenState(
     val canAllocatePlatform: Boolean = true,
+    val canProcessPlatform: Boolean = false,
     val canAllocateNative: Boolean = true,
+    val canProcessNative: Boolean = false
 )
-
-private fun <T> MutableStateFlow<T>.updateState(update: (T) -> T) {
-    value = update(value)
-}

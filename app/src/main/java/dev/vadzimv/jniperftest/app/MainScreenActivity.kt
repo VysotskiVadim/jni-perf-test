@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -40,17 +41,33 @@ class MainScreenActivity : ComponentActivity() {
 @Composable
 fun Screen(state: ScreenState, performAction: (MainScreenAction) -> Unit) {
     Column {
-        Button(
-            onClick = { performAction(MainScreenAction.AllocateNative) },
-            enabled = state.canAllocateNative,
-        ) {
-            Text(text = "Allocate Native")
+        Row {
+            Button(
+                onClick = { performAction(MainScreenAction.AllocateNative) },
+                enabled = state.canAllocateNative,
+            ) {
+                Text(text = "Allocate Native")
+            }
+            Button(
+                onClick = { performAction(MainScreenAction.ProcessNative)},
+                enabled = state.canProcessNative
+            ) {
+                Text(text = "Process Native")
+            }
         }
-        Button(
-            onClick = { performAction(MainScreenAction.AllocatePlatform) },
-            enabled = state.canAllocatePlatform
-        ) {
-            Text(text = "Allocate platform")
+        Row {
+            Button(
+                onClick = { performAction(MainScreenAction.AllocatePlatform) },
+                enabled = state.canAllocatePlatform
+            ) {
+                Text(text = "Allocate platform")
+            }
+            Button(
+                onClick = { performAction(MainScreenAction.ProcessPlatform) },
+                enabled = state.canProcessPlatform
+            ) {
+                Text(text = "Process Platform")
+            }
         }
     }
 }
@@ -72,6 +89,7 @@ fun PreviewNativeAllocated() {
         Screen(
             ScreenState(
                 canAllocateNative = false,
+                canProcessNative = true,
             )
         ) { }
     }
