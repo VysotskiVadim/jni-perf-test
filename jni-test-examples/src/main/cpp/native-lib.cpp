@@ -53,8 +53,9 @@ static const char *nativeDataProviderClassName = "dev/vadzimv/jniperftest/Native
 
 static JNINativeMethod constants_methods[] = {
     // ------- java-function-name --------- jni-signature -------- cpp-function-ptr--
-    {"getNativeStringFromArray", "(I)Ljava/lang/String;", (void *) provideStringFromArray},
     {"initStringArray", "(I)V", (void *) initializeArrayOfStrings},
+    {"getNativeStringFromArray", "(I)Ljava/lang/String;", (void *) provideStringFromArray},
+    {"getFastNativeStringFromArray", "(I)Ljava/lang/String;", (void *) provideStringFromArray},
 
     {"initIntArray", "(I)V", (void *) initIntArray},
     {"getIntFromArray", "(I)I", (void *) provideIntFromArray},

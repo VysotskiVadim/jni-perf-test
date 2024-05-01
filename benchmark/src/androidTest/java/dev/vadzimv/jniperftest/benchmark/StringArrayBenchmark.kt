@@ -36,4 +36,14 @@ class StringArrayBenchmark {
             }
         }
     }
+
+    @Test
+    fun measureFastNativeArrayOfStringsAccess() {
+        NativeDataProvider.initStringArray(TEST_ARRAY_SIZE)
+        benchmarkRule.measureRepeated {
+            for (i in 0 until TEST_ARRAY_SIZE) {
+                NativeDataProvider.getFastNativeStringFromArray(i)
+            }
+        }
+    }
 }

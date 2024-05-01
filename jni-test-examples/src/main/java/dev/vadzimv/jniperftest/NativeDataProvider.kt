@@ -16,6 +16,9 @@ class NativeDataProvider {
         @[JvmStatic Keep]
         external fun getNativeStringFromArray(index: Int): String
 
+        @[JvmStatic Keep FastNative]
+        external fun getFastNativeStringFromArray(index: Int): String
+
 
         @[JvmStatic Keep]
         external fun initIntArray(size: Int)
