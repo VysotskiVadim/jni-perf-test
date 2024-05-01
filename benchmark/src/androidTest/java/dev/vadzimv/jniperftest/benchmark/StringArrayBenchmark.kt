@@ -12,7 +12,7 @@ import org.junit.runner.RunWith
 private const val TEST_ARRAY_SIZE = 100_000
 
 @RunWith(AndroidJUnit4::class)
-class JniBenchmark {
+class StringArrayBenchmark {
 
     @get:Rule
     val benchmarkRule = BenchmarkRule()

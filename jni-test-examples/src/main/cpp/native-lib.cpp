@@ -15,6 +15,19 @@ static void initializeArrayOfStrings(JNIEnv *env, jobject thiz, jint arraySize) 
     }
 }
 
+static std::int32_t* intArray;
+
+static jint provideIntFromArray(JNIEnv *env, jobject thiz, jint index) {
+    return intArray[index];
+}
+
+static void initIntArray(JNIEnv *env, jobject thiz, jint arraySize) {
+    intArray = new int32_t[arraySize];
+    for (int i = 0; i < arraySize; ++i) {
+        intArray[i] = i;
+    }
+}
+
 // Registration
 
 static int registerNativeMethods(JNIEnv *env, const char *className, JNINativeMethod *gMethods,
@@ -36,7 +49,10 @@ static const char *nativeDataProviderClassName = "dev/vadzimv/jniperftest/Native
 static JNINativeMethod constants_methods[] = {
     // ------- java-function-name --------- jni-signature -------- cpp-function-ptr--
     {"getNativeStringFromArray", "(I)Ljava/lang/String;", (void *) provideStringFromArray},
-    {"initStringArray", "(I)V", (void *) initializeArrayOfStrings}
+    {"initStringArray", "(I)V", (void *) initializeArrayOfStrings},
+
+    {"getIntFromArray", "(I)I", (void *) provideIntFromArray},
+    {"initIntArray", "(I)V", (void *) initIntArray}
 };
 
 static int registerNatives(JNIEnv *env) {
