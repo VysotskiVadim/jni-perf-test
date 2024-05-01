@@ -31,5 +31,18 @@ class NativeDataProvider {
 
         @[JvmStatic Keep CriticalNative]
         external fun getIntFromArrayCriticalNative(index: Int): Int
+
+
+        @[JvmStatic Keep]
+        external fun initDoubleArray(size: Int)
+
+        @[JvmStatic Keep]
+        external fun getDoubleFromArray(index: Int): Double
+
+        @[JvmStatic Keep FastNative]
+        external fun getDoubleFromArrayFastNative(index: Int): Double
+
+        @[JvmStatic Keep CriticalNative]
+        external fun getDoubleFromArrayCriticalNative(index: Int): Double
     }
 }

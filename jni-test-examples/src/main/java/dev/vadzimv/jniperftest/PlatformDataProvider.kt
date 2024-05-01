@@ -4,6 +4,7 @@ object PlatformDataProvider {
 
     private lateinit var arrayOfStrings: Array<String>
     private lateinit var intArray: IntArray
+    private lateinit var doubleArray: DoubleArray
 
     fun initStringArray(size: Int) {
         arrayOfStrings = Array(size) {
@@ -20,4 +21,12 @@ object PlatformDataProvider {
     }
 
     fun getIntFromArray(index: Int) = intArray[index]
+
+    fun initDoubleArray(size: Int) {
+        doubleArray = DoubleArray(size) {
+            it.toDouble() + 0.1
+        }
+    }
+
+    fun getFromDoubleArray(index: Int) = doubleArray[index]
 }

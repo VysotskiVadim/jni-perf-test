@@ -15,7 +15,7 @@ static void initializeArrayOfStrings(JNIEnv *env, jobject thiz, jint arraySize) 
     }
 }
 
-static std::int32_t* intArray;
+static int* intArray;
 
 static jint provideIntFromArray(JNIEnv *env, jobject thiz, jint index) {
     return intArray[index];
@@ -29,6 +29,23 @@ static void initIntArray(JNIEnv *env, jobject thiz, jint arraySize) {
     intArray = new int32_t[arraySize];
     for (int i = 0; i < arraySize; ++i) {
         intArray[i] = i;
+    }
+}
+
+static double* doubleArray;
+
+static jdouble provideDoubleFromArray(JNIEnv *env, jobject thiz, jint index) {
+    return doubleArray[index];
+}
+
+static jint provideDoubleFromArrayFast(jint index) {
+    return doubleArray[index];
+}
+
+static void initDoubleArray(JNIEnv *env, jobject thiz, jint arraySize) {
+    doubleArray = new double[arraySize];
+    for (int i = 0; i < arraySize; ++i) {
+        doubleArray[i] = (double) i + 0.1;
     }
 }
 
@@ -60,7 +77,12 @@ static JNINativeMethod constants_methods[] = {
     {"initIntArray", "(I)V", (void *) initIntArray},
     {"getIntFromArray", "(I)I", (void *) provideIntFromArray},
     {"getIntFromArrayFastNative", "(I)I", (void *) provideIntFromArray},
-    {"getIntFromArrayCriticalNative", "(I)I", (void *) provideIntFromArrayFast}
+    {"getIntFromArrayCriticalNative", "(I)I", (void *) provideIntFromArrayFast},
+
+    {"initDoubleArray", "(I)V", (void *) initDoubleArray},
+    {"getDoubleFromArray", "(I)D", (void *) provideDoubleFromArray},
+    {"getDoubleFromArrayFastNative", "(I)D", (void *) provideDoubleFromArray},
+    {"getDoubleFromArrayCriticalNative", "(I)D", (void *) provideDoubleFromArrayFast}
 };
 
 static int registerNatives(JNIEnv *env) {
