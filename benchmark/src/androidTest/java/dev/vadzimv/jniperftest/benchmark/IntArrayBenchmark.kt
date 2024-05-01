@@ -47,4 +47,14 @@ class IntArrayBenchmark {
             }
         }
     }
+
+    @Test
+    fun measureCriticalNativeIntArrayAccess() {
+        NativeDataProvider.initIntArray(TEST_ARRAY_SIZE)
+        benchmarkRule.measureRepeated {
+            for (i in 0 until TEST_ARRAY_SIZE) {
+                NativeDataProvider.getIntFromArrayCriticalNative(i)
+            }
+        }
+    }
 }

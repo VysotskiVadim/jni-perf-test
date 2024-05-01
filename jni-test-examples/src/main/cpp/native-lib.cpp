@@ -21,7 +21,7 @@ static jint provideIntFromArray(JNIEnv *env, jobject thiz, jint index) {
     return intArray[index];
 }
 
-static jint provideIntFromArrayFast(JNIEnv *env, jobject thiz, jint index) {
+static jint provideIntFromArrayFast(jint index) {
     return intArray[index];
 }
 
@@ -58,7 +58,8 @@ static JNINativeMethod constants_methods[] = {
 
     {"initIntArray", "(I)V", (void *) initIntArray},
     {"getIntFromArray", "(I)I", (void *) provideIntFromArray},
-    {"getIntFromArrayFastNative", "(I)I", (void *) provideIntFromArrayFast}
+    {"getIntFromArrayFastNative", "(I)I", (void *) provideIntFromArray},
+    {"getIntFromArrayCriticalNative", "(I)I", (void *) provideIntFromArrayFast}
 };
 
 static int registerNatives(JNIEnv *env) {
