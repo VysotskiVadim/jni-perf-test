@@ -19,7 +19,7 @@ class MainScreenViewModel : ViewModel() {
                         canProcessNative = true
                     )
                 }
-                NativeDataProvider.initArray(arraySize)
+                NativeDataProvider.initStringArray(arraySize)
             }
             MainScreenAction.AllocatePlatform -> {
                 state.update {
@@ -28,7 +28,7 @@ class MainScreenViewModel : ViewModel() {
                         canProcessPlatform = true
                     )
                 }
-                PlatformDataProvider.initArray(arraySize)
+                PlatformDataProvider.initStringArray(arraySize)
             }
             MainScreenAction.ProcessNative -> {
                 for (i in 0 until arraySize) {

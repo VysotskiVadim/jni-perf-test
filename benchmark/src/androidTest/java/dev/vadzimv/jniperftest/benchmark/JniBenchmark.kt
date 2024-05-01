@@ -19,7 +19,7 @@ class JniBenchmark {
 
     @Test
     fun measurePlatformArrayOfStringsAccess() {
-        PlatformDataProvider.initArray(TEST_ARRAY_SIZE)
+        PlatformDataProvider.initStringArray(TEST_ARRAY_SIZE)
         benchmarkRule.measureRepeated {
             for (i in 0 until TEST_ARRAY_SIZE) {
                 PlatformDataProvider.getStringFromArray(i)
@@ -29,7 +29,7 @@ class JniBenchmark {
 
     @Test
     fun measureNativeArrayOfStringsAccess() {
-        NativeDataProvider.initArray(TEST_ARRAY_SIZE)
+        NativeDataProvider.initStringArray(TEST_ARRAY_SIZE)
         benchmarkRule.measureRepeated {
             for (i in 0 until TEST_ARRAY_SIZE) {
                 NativeDataProvider.getNativeStringFromArray(i)
