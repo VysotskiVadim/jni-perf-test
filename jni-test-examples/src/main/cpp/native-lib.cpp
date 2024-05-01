@@ -21,12 +21,17 @@ static jint provideIntFromArray(JNIEnv *env, jobject thiz, jint index) {
     return intArray[index];
 }
 
+static jint provideIntFromArrayFast(JNIEnv *env, jobject thiz, jint index) {
+    return intArray[index];
+}
+
 static void initIntArray(JNIEnv *env, jobject thiz, jint arraySize) {
     intArray = new int32_t[arraySize];
     for (int i = 0; i < arraySize; ++i) {
         intArray[i] = i;
     }
 }
+
 
 // Registration
 
@@ -51,8 +56,9 @@ static JNINativeMethod constants_methods[] = {
     {"getNativeStringFromArray", "(I)Ljava/lang/String;", (void *) provideStringFromArray},
     {"initStringArray", "(I)V", (void *) initializeArrayOfStrings},
 
+    {"initIntArray", "(I)V", (void *) initIntArray},
     {"getIntFromArray", "(I)I", (void *) provideIntFromArray},
-    {"initIntArray", "(I)V", (void *) initIntArray}
+    {"getIntFromArrayFastNative", "(I)I", (void *) provideIntFromArrayFast}
 };
 
 static int registerNatives(JNIEnv *env) {

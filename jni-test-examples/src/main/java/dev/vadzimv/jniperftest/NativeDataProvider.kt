@@ -1,6 +1,7 @@
 package dev.vadzimv.jniperftest
 
 import androidx.annotation.Keep
+import dalvik.annotation.optimization.FastNative
 
 class NativeDataProvider {
     companion object {
@@ -20,5 +21,8 @@ class NativeDataProvider {
 
         @[JvmStatic Keep]
         external fun getIntFromArray(index: Int): Int
+
+        @[JvmStatic Keep FastNative]
+        external fun getIntFromArrayFastNative(index: Int): Int
     }
 }

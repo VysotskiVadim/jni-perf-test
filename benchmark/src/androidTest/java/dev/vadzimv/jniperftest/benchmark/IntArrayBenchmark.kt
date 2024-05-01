@@ -37,4 +37,14 @@ class IntArrayBenchmark {
             }
         }
     }
+
+    @Test
+    fun measureFastNativeIntArrayAccess() {
+        NativeDataProvider.initIntArray(TEST_ARRAY_SIZE)
+        benchmarkRule.measureRepeated {
+            for (i in 0 until TEST_ARRAY_SIZE) {
+                NativeDataProvider.getIntFromArrayFastNative(i)
+            }
+        }
+    }
 }
