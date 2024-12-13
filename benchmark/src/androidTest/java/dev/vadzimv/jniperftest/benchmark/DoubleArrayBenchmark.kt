@@ -39,7 +39,7 @@ class DoubleArrayBenchmark {
     }
 
     @Test
-    fun measureFastNativeIntArrayAccess() {
+    fun measureFastNativeDoubleArrayAccess() {
         NativeDataProvider.initDoubleArray(TEST_ARRAY_SIZE)
         benchmarkRule.measureRepeated {
             for (i in 0 until TEST_ARRAY_SIZE) {
@@ -49,7 +49,7 @@ class DoubleArrayBenchmark {
     }
 
     @Test
-    fun measureCriticalNativeIntArrayAccess() {
+    fun measureCriticalNativeDoubleArrayAccess() {
         NativeDataProvider.initDoubleArray(TEST_ARRAY_SIZE)
         benchmarkRule.measureRepeated {
             for (i in 0 until TEST_ARRAY_SIZE) {

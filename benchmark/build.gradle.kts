@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "dev.vadzimv.jniperftest.benchmark"
-    compileSdk = 34
+    compileSdk = 35
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
