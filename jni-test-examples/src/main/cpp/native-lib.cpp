@@ -62,6 +62,14 @@ static jobject getJavaByteBuffer(JNIEnv *env, jobject thiz) {
     return javaByteBufferWrapper;
 }
 
+static uint8_t getByteFromBuffer(JNIEnv *env, jobject thiz, jint index) {
+    return byteBuffer[index];
+}
+
+static uint8_t getByteFromBufferFast(jint index) {
+    return byteBuffer[index];
+}
+
 // Registration
 
 static int registerNativeMethods(JNIEnv *env, const char *className, JNINativeMethod *gMethods,
@@ -98,6 +106,9 @@ static JNINativeMethod constants_methods[] = {
 
     {"initByteBuffer", "(I)V", (void *) initByteBuffer},
     {"getByteBuffer", "()Ljava/nio/ByteBuffer;", (void *) getJavaByteBuffer},
+    {"getByteFromByteBuffer", "(I)B", (void *) getByteFromBuffer},
+    {"getByteFromByteBufferFastNative", "(I)B", (void *) getByteFromBuffer},
+    {"getByteFromByteBufferCriticalNative", "(I)B", (void *) getByteFromBufferFast},
 };
 
 static int registerNatives(JNIEnv *env) {

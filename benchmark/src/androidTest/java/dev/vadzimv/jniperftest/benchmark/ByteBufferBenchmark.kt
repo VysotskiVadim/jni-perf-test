@@ -8,7 +8,6 @@ import dev.vadzimv.jniperftest.PlatformDataProvider
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.nio.ByteBuffer
 
 private const val TEST_ARRAY_SIZE = 1_000_000
 
@@ -19,7 +18,7 @@ class ByteBufferBenchmark {
     val benchmarkRule = BenchmarkRule()
 
     @Test
-    fun measurePlatformArrayOfStringsAccess() {
+    fun measureByteAccessViaByteBuffer() {
         NativeDataProvider.initByteBuffer(TEST_ARRAY_SIZE)
         val byteBuffer = NativeDataProvider.getByteBuffer()
         byteBuffer.get(4)
@@ -30,5 +29,43 @@ class ByteBufferBenchmark {
         }
     }
 
+    @Test
+    fun measureByteAccessDirectlyBuffer() {
+        NativeDataProvider.initByteBuffer(TEST_ARRAY_SIZE)
+        benchmarkRule.measureRepeated {
+            for (i in 0 until TEST_ARRAY_SIZE) {
+                NativeDataProvider.getByteFromByteBuffer(i)
+            }
+        }
+    }
 
+    @Test
+    fun measureByteAccessDirectlyBufferFastNative() {
+        NativeDataProvider.initByteBuffer(TEST_ARRAY_SIZE)
+        benchmarkRule.measureRepeated {
+            for (i in 0 until TEST_ARRAY_SIZE) {
+                NativeDataProvider.getByteFromByteBufferFastNative(i)
+            }
+        }
+    }
+
+    @Test
+    fun measureByteAccessDirectlyBufferCriticalNative() {
+        NativeDataProvider.initByteBuffer(TEST_ARRAY_SIZE)
+        benchmarkRule.measureRepeated {
+            for (i in 0 until TEST_ARRAY_SIZE) {
+                NativeDataProvider.getByteFromByteBufferCriticalNative(i)
+            }
+        }
+    }
+
+    @Test
+    fun measureByteAccessFromPlatformArray() {
+        PlatformDataProvider.initByteArray(TEST_ARRAY_SIZE)
+        benchmarkRule.measureRepeated {
+            for (i in 0 until TEST_ARRAY_SIZE) {
+                PlatformDataProvider.getFromByteArray(i)
+            }
+        }
+    }
 }

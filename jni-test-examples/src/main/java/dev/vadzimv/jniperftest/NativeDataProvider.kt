@@ -51,5 +51,15 @@ class NativeDataProvider {
 
         @[JvmStatic Keep]
         external fun getByteBuffer(): ByteBuffer
+
+        @[JvmStatic Keep]
+        external fun getByteFromByteBuffer(index: Int): Byte
+
+        @[JvmStatic Keep FastNative]
+        external fun getByteFromByteBufferFastNative(index: Int): Byte
+
+        @[JvmStatic Keep CriticalNative]
+        external fun getByteFromByteBufferCriticalNative(index: Int): Byte
+
     }
 }

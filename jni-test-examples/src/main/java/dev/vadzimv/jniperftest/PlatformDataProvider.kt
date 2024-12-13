@@ -5,6 +5,7 @@ object PlatformDataProvider {
     private lateinit var arrayOfStrings: Array<String>
     private lateinit var intArray: IntArray
     private lateinit var doubleArray: DoubleArray
+    private lateinit var byteArray: ByteArray
 
     fun initStringArray(size: Int) {
         arrayOfStrings = Array(size) {
@@ -29,4 +30,10 @@ object PlatformDataProvider {
     }
 
     fun getFromDoubleArray(index: Int) = doubleArray[index]
+
+    fun initByteArray(size: Int) {
+        byteArray = ByteArray(size)
+    }
+
+    fun getFromByteArray(index: Int): Byte = byteArray[index]
 }
