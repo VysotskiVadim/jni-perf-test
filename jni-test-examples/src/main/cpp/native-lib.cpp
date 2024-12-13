@@ -49,6 +49,18 @@ static void initDoubleArray(JNIEnv *env, jobject thiz, jint arraySize) {
     }
 }
 
+static uint8_t* byteBuffer;
+static jobject javaByteBufferWrapper;
+
+static void initByteBuffer(JNIEnv *env, jobject thiz, jint bufferSize) {
+    void* buffer = malloc(bufferSize);
+    byteBuffer = static_cast<uint8_t*>(buffer);
+    javaByteBufferWrapper = env->NewDirectByteBuffer(buffer, bufferSize);
+}
+
+static jobject getJavaByteBuffer(JNIEnv *env, jobject thiz) {
+    return javaByteBufferWrapper;
+}
 
 // Registration
 
@@ -82,7 +94,10 @@ static JNINativeMethod constants_methods[] = {
     {"initDoubleArray", "(I)V", (void *) initDoubleArray},
     {"getDoubleFromArray", "(I)D", (void *) provideDoubleFromArray},
     {"getDoubleFromArrayFastNative", "(I)D", (void *) provideDoubleFromArray},
-    {"getDoubleFromArrayCriticalNative", "(I)D", (void *) provideDoubleFromArrayFast}
+    {"getDoubleFromArrayCriticalNative", "(I)D", (void *) provideDoubleFromArrayFast},
+
+    {"initByteBuffer", "(I)V", (void *) initByteBuffer},
+    {"getByteBuffer", "()Ljava/nio/ByteBuffer;", (void *) getJavaByteBuffer},
 };
 
 static int registerNatives(JNIEnv *env) {

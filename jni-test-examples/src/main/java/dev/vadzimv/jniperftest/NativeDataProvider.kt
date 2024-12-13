@@ -3,6 +3,7 @@ package dev.vadzimv.jniperftest
 import androidx.annotation.Keep
 import dalvik.annotation.optimization.CriticalNative
 import dalvik.annotation.optimization.FastNative
+import java.nio.ByteBuffer
 
 class NativeDataProvider {
     companion object {
@@ -44,5 +45,11 @@ class NativeDataProvider {
 
         @[JvmStatic Keep CriticalNative]
         external fun getDoubleFromArrayCriticalNative(index: Int): Double
+
+        @[JvmStatic Keep]
+        external fun initByteBuffer(size: Int)
+
+        @[JvmStatic Keep]
+        external fun getByteBuffer(): ByteBuffer
     }
 }
