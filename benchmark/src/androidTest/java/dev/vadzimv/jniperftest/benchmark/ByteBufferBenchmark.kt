@@ -21,7 +21,6 @@ class ByteBufferBenchmark {
     fun measureByteAccessViaByteBuffer() {
         NativeDataProvider.initByteBuffer(TEST_ARRAY_SIZE)
         val byteBuffer = NativeDataProvider.getByteBuffer()
-        byteBuffer.get(4)
         benchmarkRule.measureRepeated {
             for (i in 0 until TEST_ARRAY_SIZE) {
                 byteBuffer.get(i)
